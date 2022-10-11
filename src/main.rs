@@ -20,10 +20,8 @@ fn main() {
     println!("--------------------------------------------------------------------------------");
 
     // Connection data user input
-
     let mut ip_broker = String::new();
     let mut port_broker = String::new();
-
 
     println!("Chooes Broker IP: ");
     io::stdin()
@@ -39,14 +37,13 @@ fn main() {
     println!("PORT_BROKER -> {}", port_broker.to_string());
     println!("--------------------------------------------------------------------------------");
 
-
     let connection_string = format!("tcp://{}:{}", ip_broker.trim(), port_broker);
     println!("-- Connection String -> {}", connection_string.trim());
     println!("-- Topic -> [DateTimeLocal]");
     println!("-- End Publishing -> [CTRL + C]");
     println!("--------------------------------------------------------------------------------");
 
-    // Create a client & define connect options "tcp://10.77.10.2:1883"
+    // Create a client & define connect options "tcp://localhost:1883"
     let cli = mqtt::Client::new(connection_string).unwrap_or_else(|err| {
         println!("Error creating the client: {:?}", err);
         process::exit(1);
