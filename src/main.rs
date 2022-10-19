@@ -6,7 +6,7 @@ mod input;
 
 fn main() {
 
-    // CLI Style
+    // CLI header style
     let standard_font = FIGfont::standard().unwrap();
     let figure = standard_font.convert("rs_MQTT");
     assert!(figure.is_some());
