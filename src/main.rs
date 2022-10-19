@@ -18,6 +18,7 @@ fn main() {
     println!("{}"," - Topic: DateTimeLocal/".blue());
     println!("----------------------------------------------------------------");
 
+    // Fetch user input and start publisher
     if input::msg_start() {
         client::publisher(
             input::host_ip_v4(), 
