@@ -14,18 +14,22 @@ fn main() {
     println!("----------------------------------------------------------------");
     println!("{}", figure.unwrap());
     println!("{}","Welcome to RUST MQTT Publisher Client!".blue());
-    println!("{}"," - Publishing [1Hz] with: index | local_time_now".blue());
+    println!("{}"," - Publishing index with local time".blue());
     println!("{}"," - Topic: DateTimeLocal/".blue());
     println!("----------------------------------------------------------------");
 
     // Fetch user input and start publisher
-    if input::msg_start() {
+    //if input::msg_start() {
         client::publisher(
             input::host_ip_v4(), 
             input::host_port(), 
-            input::msg_qos(), 
+            input::msg_qos(),
+            input::keep_alive_interval(), 
+            input::publish_interval(),
             input::usr(), 
-            input::pwd());
+            input::pwd(),
+            input::run_app());
             println!("----------------------------------------------------------------");
-    }
+    //}
+
 }

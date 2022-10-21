@@ -3,17 +3,17 @@ use dialoguer::{theme::ColorfulTheme, Confirm, Input, Select, Password};
 
 
 // START
-pub fn msg_start() -> bool {
-    if Confirm::with_theme(&ColorfulTheme::default())
-    .with_prompt("START with the configuration?")
-    .interact()
-    .unwrap()
-    {
-        return true;
-    } else {
-        return false;
-    }
-}
+// pub fn msg_start() -> bool {
+//     if Confirm::with_theme(&ColorfulTheme::default())
+//     .with_prompt("START with the configuration?")
+//     .interact()
+//     .unwrap()
+//     {
+//         return true;
+//     } else {
+//         return false;
+//     }
+//}
 
 
 // HOST_IP_V4_ADDRESS 
@@ -51,13 +51,33 @@ let mut port_encode = String::new();
 pub fn msg_qos() -> i32 {
     let qos = Select::with_theme(&ColorfulTheme::default())
     .with_prompt("QoS:")
-    .default(0)
+    .default(1)
     .item("QoS 0")
     .item("QoS 1")
     .item("QoS 2")
     .interact()
     .unwrap();
     return qos as i32
+}
+
+// KEEP_ALIVE_INTERVAL
+pub fn keep_alive_interval() -> u64 {
+    let kai_sec: u64 = Input::with_theme(&ColorfulTheme::default())
+    .with_prompt("Keep Alive Interval [sec]:")
+    .default(60)
+    .interact()
+    .unwrap();
+    return kai_sec
+}
+
+// PUBLISH INTERVAL
+pub fn publish_interval() -> u64 {
+    let pub_sec: u64 = Input::with_theme(&ColorfulTheme::default())
+    .with_prompt("Publishing Interval [msec]:")
+    .default(1000)
+    .interact()
+    .unwrap();
+    return pub_sec
 }
 
 
@@ -82,4 +102,17 @@ pub fn pwd() -> String{
         .unwrap();
         println!("----------------------------------------------------------------");
         return password
+}
+
+// RUN
+pub fn run_app() -> bool {
+    if Confirm::with_theme(&ColorfulTheme::default())
+    .with_prompt("RUN application?")
+    .interact()
+    .unwrap()
+    {
+        return true;
+    } else {
+        return false;
+    }
 }

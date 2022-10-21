@@ -1,10 +1,13 @@
-use std::process;
 use std::{thread, time};
 use chrono::{Local};
 use paho_mqtt as mqtt;
+use std::{process};
 
-pub fn publisher(ip: String, port: String, qos: i32, username: String, password: String){
+
+pub fn publisher(ip: String, port: String, qos: i32, kai_sec:u64, pub_interval:u64, username: String, password: String, run_app_dummy: bool){
     
+    if run_app_dummy {
+
     // Create connection string--------------------------------------------------------------------
     let conn_string = format!("tcp://{ip}:{port}");
 
@@ -15,7 +18,7 @@ pub fn publisher(ip: String, port: String, qos: i32, username: String, password:
 
     // Connect to the broker using the specified connection string and username and password ------
     let conn_opts = mqtt::ConnectOptionsBuilder::new()
-        .keep_alive_interval(time::Duration::from_secs(20))
+        .keep_alive_interval(time::Duration::from_secs(kai_sec))
         .clean_session(true)
         .user_name(username)
         .password(password)
@@ -28,8 +31,9 @@ pub fn publisher(ip: String, port: String, qos: i32, username: String, password:
     }
 
     // Create a message and publish loop ----------------------------------------------------------
-    let delay = time::Duration::from_millis(1000);
+    let delay = time::Duration::from_millis(pub_interval);
     let mut index = 0;
+
     loop {
         let local_time = Local::now();
 
@@ -49,8 +53,14 @@ pub fn publisher(ip: String, port: String, qos: i32, username: String, password:
         // Disconnect from the broker
         let tok = cli.disconnect(None);
         tok.unwrap();
+        println!("Disconnected from broker");
         }
 
         thread::sleep(delay);
     }
+
+    } else {
+        println!("RUN cancelled by user !");
+    }
+
 }
